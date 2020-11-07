@@ -136,7 +136,7 @@ local vars = import 'vars.jsonnet';
   // Create ingress objects per application
   ingress+:: {
     alertmanager:
-      local I = utils.newIngress('alertmanager-main', $._config.namespace, $._config.urls.alert_ingress, '/', 'alertmanager-main', 'web');
+      local I = utils.newIngress('alertmanager-main', $._config.namespace, $._config.urls.alert_ingress, '/', 'alertmanager-main', 'web', vars.ingressAnnotations);
       if vars.TLSingress then
         if vars.UseProvidedCerts then
           utils.addIngressTLS(I, 'ingress-secret')
@@ -146,7 +146,7 @@ local vars = import 'vars.jsonnet';
         I,
 
     grafana:
-      local I = utils.newIngress('grafana', $._config.namespace, $._config.urls.grafana_ingress, '/', 'grafana', 'http');
+      local I = utils.newIngress('grafana', $._config.namespace, $._config.urls.grafana_ingress, '/', 'grafana', 'http', vars.ingressAnnotations);
       if vars.TLSingress then
         if vars.UseProvidedCerts then
           utils.addIngressTLS(I, 'ingress-secret')
@@ -156,7 +156,7 @@ local vars = import 'vars.jsonnet';
         I,
 
     prometheus:
-      local I = utils.newIngress('prometheus-k8s', $._config.namespace, $._config.urls.prom_ingress, '/', 'prometheus-k8s', 'web');
+      local I = utils.newIngress('prometheus-k8s', $._config.namespace, $._config.urls.prom_ingress, '/', 'prometheus-k8s', 'web', vars.ingressAnnotations);
       if vars.TLSingress then
         if vars.UseProvidedCerts then
           utils.addIngressTLS(I, 'ingress-secret')

@@ -12,7 +12,7 @@
     },
     {
       name: 'armExporter',
-      enabled: false,
+      enabled: true,
       file: import 'modules/arm_exporter.jsonnet',
     },
     {
@@ -22,7 +22,7 @@
     },
     {
       name: 'metallbExporter',
-      enabled: false,
+      enabled: true,
       file: import 'modules/metallb.jsonnet',
     },
     {
@@ -32,7 +32,7 @@
     },
     {
       name: 'traefikExporter',
-      enabled: false,
+      enabled: true,
       file: import 'modules/traefik.jsonnet',
     },
     {
@@ -48,9 +48,12 @@
   },
 
   // Domain suffix for the ingresses
-  suffixDomain: '192.168.1.15.nip.io',
+  suffixDomain: 'dixneuf19.me',
   // If TLSingress is true, a self-signed HTTPS ingress with redirect will be created
   TLSingress: true,
+  ingressAnnotations: {
+    "traefik.ingress.kubernetes.io/router.middlewares": "traefik-basic-auth@kubernetescrd"
+    },
   // If UseProvidedCerts is true, provided files will be used on created HTTPS ingresses.
   // Use a wildcard certificate for the domain like ex. "*.192.168.99.100.nip.io"
   UseProvidedCerts: false,

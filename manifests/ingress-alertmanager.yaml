@@ -1,11 +1,13 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-basic-auth@kubernetescrd
   name: alertmanager-main
   namespace: monitoring
 spec:
   rules:
-  - host: alertmanager.192.168.1.15.nip.io
+  - host: alertmanager.dixneuf19.me
     http:
       paths:
       - backend:
@@ -14,4 +16,4 @@ spec:
         path: /
   tls:
   - hosts:
-    - alertmanager.192.168.1.15.nip.io
+    - alertmanager.dixneuf19.me

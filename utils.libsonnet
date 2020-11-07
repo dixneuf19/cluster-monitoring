@@ -91,7 +91,7 @@ local k = import 'ksonnet/ksonnet.beta.4/k.libsonnet';
   ),
 
   // Creates ingress objects
-  newIngress(name, namespace, host, path, serviceName, servicePort):: (
+  newIngress(name, namespace, host, path, serviceName, servicePort, annotations={}):: (
     local ingress = k.extensions.v1beta1.ingress;
     local ingressTls = ingress.mixin.spec.tlsType;
     local ingressRule = ingress.mixin.spec.rulesType;
@@ -100,6 +100,7 @@ local k = import 'ksonnet/ksonnet.beta.4/k.libsonnet';
     ingress.new()
     + ingress.mixin.metadata.withName(name)
     + ingress.mixin.metadata.withNamespace(namespace)
+    + ingress.mixin.metadata.withAnnotations(annotations)
     + ingress.mixin.spec.withRules(
       ingressRule.new()
       + ingressRule.withHost(host)
